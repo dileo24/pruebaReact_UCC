@@ -1,0 +1,29 @@
+[
+  {
+    "nombre": "Joaquín",
+    "apellido": "Di Leo",
+    "email": "joacodileo@gmail.com",
+    "domicilio": "Igualdad 2992",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "profesiones": ["1", "5"]
+  },
+  {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "email": "juanp@gmail.com",
+    "domicilio": "Nicanor Carranza 1528",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "profesiones": ["2", "4"]
+  },
+  {
+    "nombre": "Germán",
+    "apellido": "Casillas",
+    "email": "gerc@gmail.com",
+    "domicilio": "Betania 3120",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "profesiones": ["3", "5"]
+  }
+]
