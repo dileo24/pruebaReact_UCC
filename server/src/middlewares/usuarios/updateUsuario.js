@@ -2,8 +2,7 @@ const { Usuario, Profesion } = require("../../db");
 
 const updateUsuario = async (req, res, next) => {
   try {
-    let { nombre, apellido, email, clave, domicilio, bloqueo, profesionesID } =
-      req.body;
+    let { nombre, apellido, email, clave, domicilio, profesionesID } = req.body;
     const id = req.params.id;
     const usuario = await Usuario.findByPk(id);
     if (usuario.lenght !== 0) {
@@ -14,7 +13,6 @@ const updateUsuario = async (req, res, next) => {
           email: email || usuario.email,
           domicilio: domicilio || usuario.domicilio,
           clave: clave || usuario.clave,
-          bloqueo: bloqueo || usuario.bloqueo,
         },
         { where: { id: id } }
       );

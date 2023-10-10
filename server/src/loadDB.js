@@ -17,7 +17,6 @@ async function fnUsuarios() {
       email: u.email,
       domicilio: u.domicilio,
       clave: await encrypt(u.clave),
-      bloqueo: u.bloqueo,
     });
     for (const profID of u.profesiones) {
       const profesion = await Profesion.findOne({
