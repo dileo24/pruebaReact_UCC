@@ -22,5 +22,29 @@
     "domicilio": "Betania 3120",
     "clave": "hola1234",
     "profesiones": ["3", "5"]
+  },
+  {
+    "nombre": "Tomás",
+    "apellido": "Torres",
+    "email": "tomast@gmail.com",
+    "domicilio": "Santa Rosa 2002",
+    "clave": "hola1234",
+    "profesiones": ["2", "5"]
+  },
+  {
+    "nombre": "Agustín",
+    "apellido": "López",
+    "email": "aguslopez@gmail.com",
+    "domicilio": "Octavio Pinto 2328",
+    "clave": "hola1234",
+    "profesiones": ["2", "3"]
+  },
+  {
+    "nombre": "Gabriel",
+    "apellido": "Benegas",
+    "email": "gabrielb@gmail.com",
+    "domicilio": "San Juan 1220",
+    "clave": "hola1234",
+    "profesiones": ["4", "5"]
   }
 ]

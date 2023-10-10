@@ -1,0 +1,21 @@
+.homeContainer {
+  .ususariosContainer {
+    @include centerRow;
+    .card {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      .card-img-top {
+        border-bottom: 0.5px solid rgb(189, 189, 189);
+        padding: 15%;
+      }
+      .card-body {
+        text-align: center;
+        font-weight: bold;
+      }
+      .card-body:hover {
+        background-color: cornflowerblue;
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
+}
