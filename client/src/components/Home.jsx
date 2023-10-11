@@ -6,13 +6,17 @@ import Modal from "./Modal";
 import Navbar from "./Navbar";
 
 export default function Home() {
-  let usuarios = useSelector((state) => state.usuarios);
+  let usuarios = useSelector((state) => state.usuariosBusq);
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUsuarios());
   }, [dispatch]);
+
+  const recargarUsuarios = () => {
+    dispatch(getUsuarios());
+  };
 
   const openModal = () => {
     setShowModal(true);
@@ -21,16 +25,17 @@ export default function Home() {
   const closeModal = () => {
     setShowModal(false);
   };
-  console.log(usuarios);
+
   return (
     <>
       <Navbar />
-      {usuarios && (
+      {usuarios.length > 0 ? (
         <div className="homeContainer">
-          <div className="ususariosContainer">
+          <div className="usuariosContainer">
             {usuarios.map((user) => (
               <div key={user.id}>
                 <Card
+                  id={user.id}
                   nombre={user.nombre}
                   apellido={user.apellido}
                   openModal={openModal}
@@ -48,6 +53,15 @@ export default function Home() {
                 {showModal && <div className="modal-backdrop fade show"></div>}
               </div>
             ))}
+          </div>
+        </div>
+      ) : (
+        <div className="homeContainer">
+          <div className="aviso">
+            <h1>Usuario no encontrado!</h1>
+            <button className="btn btn-primary" onClick={recargarUsuarios}>
+              Recargar lista completa de usuarios.
+            </button>
           </div>
         </div>
       )}

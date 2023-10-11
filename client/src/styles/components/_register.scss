@@ -1,0 +1,114 @@
+.registerContainer {
+  background-color: rgb(247, 247, 247);
+  padding: 2.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
+  .volver {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+  }
+  .CardCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80vw;
+    width: 100%;
+    height: 80%;
+
+    h1 {
+      font-size: 2vw;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.2;
+      width: 100%;
+    }
+
+    .cardContainer {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      width: 70%;
+
+      .cardLogin {
+        background-color: rgb(255, 255, 255);
+        width: 35vw;
+        border-radius: 1vw;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 4%;
+
+        .formLogin {
+          .inputsDiv {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2.5%;
+            position: relative;
+            font-size: medium;
+
+            .labelInp {
+              font-weight: 800;
+            }
+
+            .inputs {
+              padding: 2.5%;
+              margin-top: 2.5%;
+            }
+
+            .ojoCerrado,
+            .ojoAbierto {
+              position: absolute;
+              top: 55%;
+              right: 3%;
+              color: #999;
+              width: 2vw;
+              height: 2vw;
+              cursor: pointer;
+            }
+
+            .checks {
+              @include centerRow;
+              .checkContainer {
+                @include center;
+                font-weight: normal;
+                font-size: large;
+              }
+            }
+          }
+
+          .submitBtn {
+            margin: 5% 0 0 20%;
+            width: 60%;
+            padding: 2% 0;
+            font-weight: bolder;
+            background-color: rgb(25, 152, 255);
+            border-radius: 8px;
+            font-size: larger;
+          }
+          .submitBtn:hover {
+            border: 2px solid rgb(25, 152, 255);
+            background-color: white;
+          }
+
+          .errorText {
+            color: red;
+          }
+        }
+
+        .aviso {
+          text-align: center;
+          margin: 10% 0 5% 0;
+          font-weight: bolder;
+          font-size: medium;
+          cursor: pointer;
+
+          &:hover {
+            color: rgb(201, 0, 0);
+          }
+        }
+      }
+    }
+  }
+}

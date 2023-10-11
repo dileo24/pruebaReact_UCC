@@ -10,9 +10,9 @@ export default function Modal({
 }) {
   return (
     <div
-      className="modal fade show"
+      className="modal fade show transparent-modal-bg"
       id="exampleModal"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -37,7 +37,7 @@ export default function Modal({
               <li className="list-group-item">Email: {email}</li>
               <li className="list-group-item">Domicilio: {domicilio}</li>
               <li className="list-group-item">
-                Profesiones:
+                Profesiones:{" "}
                 {profesiones.map((prof) => prof.profesion).join(", ")}
               </li>
             </ol>

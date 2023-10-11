@@ -1,5 +1,6 @@
 @mixin center {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 }
@@ -28,6 +29,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  p {
+    margin-bottom: 0;
+  }
 }
 
 code {
