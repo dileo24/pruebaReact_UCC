@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsuarios } from "../redux/actions";
 import Card from "./Card";
-import Modal from "./Modal";
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   let usuarios = useSelector((state) => state.usuariosBusq);
-  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+  const navigation = useNavigate();
 
   useEffect(() => {
     dispatch(getUsuarios());
@@ -18,17 +18,13 @@ export default function Home() {
     dispatch(getUsuarios());
   };
 
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
+  const goPerfil = (id) => {
+    navigation(`/usuarios/${id}`);
   };
 
   return (
     <>
-      <Navbar />
+      <Navbar link={"home"} />
       {usuarios.length > 0 ? (
         <div className="homeContainer">
           <div className="usuariosContainer">
@@ -38,19 +34,8 @@ export default function Home() {
                   id={user.id}
                   nombre={user.nombre}
                   apellido={user.apellido}
-                  openModal={openModal}
+                  goPerfil={goPerfil}
                 />
-                {showModal && (
-                  <Modal
-                    nombre={user.nombre}
-                    apellido={user.apellido}
-                    email={user.email}
-                    domicilio={user.domicilio}
-                    profesiones={user.Profesions}
-                    closeModal={closeModal}
-                  />
-                )}
-                {showModal && <div className="modal-backdrop fade show"></div>}
               </div>
             ))}
           </div>

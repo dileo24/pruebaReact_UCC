@@ -14,7 +14,6 @@ export default function Register() {
   const [selectedProfesiones, setSelectedProfesiones] = useState([]);
 
   const [registerError, setRegisterError] = useState(null);
-  let email;
 
   useEffect(() => {
     dispatch(getUsuarios());
@@ -49,13 +48,10 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateEmail(input.email.valueOf());
     if (emails && emails.includes(input.email)) {
       setRegisterError("El email ingresado ya existe");
     } else if (input.clave.length < 8) {
       setRegisterError("La contraseña debe tener al menos 8 caracteres");
-    } else if (!email) {
-      setRegisterError("Formato del email inválido");
     } else {
       input.profesiones = selectedProfesiones;
       dispatch(register(input));
@@ -81,14 +77,6 @@ export default function Register() {
   }, [dispatch]);
 
   // Función de validación de email
-  const validateEmail = (e) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(e)) {
-      email = false;
-    } else {
-      email = true;
-    }
-  };
 
   const volverFunction = () => {
     navigate("/login");

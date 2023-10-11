@@ -1,5 +1,8 @@
 import {
   CLEAN_USER,
+  DELETE_USUARIO,
+  GET_PERFIL,
+  GET_POSTEOS,
   GET_PROFESIONES,
   GET_USER_ACTUAL,
   GET_USUARIOS,
@@ -11,6 +14,8 @@ const initialState = {
   usuarios: [],
   profesiones: [],
   usuariosBusq: [],
+  posteos: [],
+  perfil: {},
 };
 
 function rootReducer(state = initialState, action) {
@@ -21,10 +26,29 @@ function rootReducer(state = initialState, action) {
         usuarios: [...action.payload],
         usuariosBusq: [...action.payload],
       };
+
+    case DELETE_USUARIO:
+      return {
+        ...state,
+        usuarios: state.usuarios.filter((user) => user.id !== action.payload),
+      };
+
+    case GET_PERFIL:
+      return {
+        ...state,
+        perfil: action.payload,
+      };
+
     case GET_PROFESIONES:
       return {
         ...state,
         profesiones: [...action.payload],
+      };
+
+    case GET_POSTEOS:
+      return {
+        ...state,
+        posteos: [...action.payload],
       };
 
     case GET_USER_ACTUAL:

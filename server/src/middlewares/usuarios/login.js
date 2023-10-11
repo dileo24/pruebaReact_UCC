@@ -16,7 +16,7 @@ const login = async (req, res, next) => {
       const checkClave = await compare(clave, user.clave);
 
       if (checkClave) {
-        return res.send({ user });
+        return res.send(user);
       } else {
         return res.status(404).send({ error: "Contraseña incorrecta!" });
       }

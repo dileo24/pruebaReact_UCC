@@ -5,8 +5,7 @@ const allPosts = async (req, res, next) => {
     const allPosts = await Post.findAll({
       include: [
         {
-          model: Usuario,
-          attributes: ["id", "email"], // atributos del usuario
+          model: Usuario, // atributos del usuario
         },
       ],
     });

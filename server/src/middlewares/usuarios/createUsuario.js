@@ -52,10 +52,12 @@ const createUsuario = async (req, res, next) => {
       }
 
       req.body.resultado = {
+        id: newUsuario.id,
         nombre: newUsuario.nombre,
         apellido: newUsuario.apellido,
         email: newUsuario.email,
         domicilio: newUsuario.domicilio,
+        clave: newUsuario.clave,
         profesiones: profesionesArray,
       };
       next();

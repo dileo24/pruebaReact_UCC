@@ -1,0 +1,28 @@
+.container {
+  .cardPost {
+    border-bottom: 0.5px solid rgb(189, 189, 189);
+    margin-bottom: 3rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.555);
+    border-radius: 5px;
+    padding: 1rem;
+    .title {
+      font-size: larger;
+      font-weight: bolder;
+    }
+    .autor {
+      font-size: small;
+      font-weight: bold;
+      color: grey;
+    }
+    .autor:hover {
+      cursor: pointer;
+      color: rgb(0, 132, 255);
+    }
+    .cuerpo {
+      margin-top: 1rem;
+      font-size: large;
+      font-weight: normal;
+      color: black;
+    }
+  }
+}
