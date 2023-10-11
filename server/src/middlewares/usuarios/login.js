@@ -1,5 +1,4 @@
 const { Usuario } = require("../../db");
-const { tokenSign } = require("../../helpers/generateToken");
 const { compare } = require("../../helpers/handleCrypt");
 
 const login = async (req, res, next) => {
@@ -15,10 +14,9 @@ const login = async (req, res, next) => {
         return res.status(404).send({ error: "Usuario no encontrado" });
       }
       const checkClave = await compare(clave, user.clave);
-      const tokenSession = await tokenSign(user);
 
       if (checkClave) {
-        return res.send({ user, tokenSession });
+        return res.send({ user });
       } else {
         return res.status(404).send({ error: "Contraseña incorrecta!" });
       }

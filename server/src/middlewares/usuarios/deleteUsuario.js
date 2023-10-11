@@ -14,8 +14,7 @@ const deleteUsuario = async (req, res, next) => {
     };
     next();
   } catch (err) {
-    console.log("error en deleteUsuario");
-    console.log(err);
+    console.log("error en deleteUsuario", err.message);
     req.body.eliminado = { status: 404, resultado: err.message };
     next();
   }

@@ -46,5 +46,13 @@
     "domicilio": "San Juan 1220",
     "clave": "hola1234",
     "profesiones": ["4", "5"]
+  },
+  {
+    "nombre": "Marcelo",
+    "apellido": "Rodriguez",
+    "email": "marcelor@gmail.com",
+    "domicilio": "Colón 1192",
+    "clave": "hola1234",
+    "profesiones": ["1", "5"]
   }
 ]

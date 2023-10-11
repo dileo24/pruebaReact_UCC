@@ -1,4 +1,4 @@
-const { Usuario, Profesion } = require("../../db");
+const { Post, Usuario, Profesion } = require("../../db");
 
 const allUsuarios = async (req, res, next) => {
   try {
@@ -10,6 +10,10 @@ const allUsuarios = async (req, res, next) => {
           through: {
             attributes: [], // excluir tabla intermedia
           },
+        },
+        {
+          model: Post,
+          attributes: ["id", "titulo", "cuerpo"],
         },
       ],
     });

@@ -1,5 +1,4 @@
 const { Usuario, Profesion } = require("../../db");
-const { tokenSign } = require("../../helpers/generateToken");
 const { encrypt } = require("../../helpers/handleCrypt");
 
 const createUsuario = async (req, res, next) => {
@@ -52,16 +51,12 @@ const createUsuario = async (req, res, next) => {
         }
       }
 
-      const tokenSession = await tokenSign(newUsuario);
-
       req.body.resultado = {
         nombre: newUsuario.nombre,
         apellido: newUsuario.apellido,
         email: newUsuario.email,
         domicilio: newUsuario.domicilio,
         profesiones: profesionesArray,
-
-        tokenSession,
       };
       next();
     } else {

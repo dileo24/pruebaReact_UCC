@@ -34,8 +34,7 @@ const updateUsuario = async (req, res, next) => {
       throw new Error(`Usuario con el ID: ${id} no se ha encontrado`);
     }
   } catch (err) {
-    console.log("error en updateUsuario");
-    console.log(err);
+    console.log("error en updateUsuario", err.message);
     req.body.resultado = { status: 404, resultado: err.message };
     next();
   }
