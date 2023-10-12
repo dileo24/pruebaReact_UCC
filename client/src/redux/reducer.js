@@ -6,6 +6,7 @@ import {
   GET_PROFESIONES,
   GET_USER_ACTUAL,
   GET_USUARIOS,
+  SEARCH_POSTS,
   SEARCHxNOMBRE,
 } from "./actions.js";
 
@@ -15,6 +16,7 @@ const initialState = {
   profesiones: [],
   usuariosBusq: [],
   posteos: [],
+  posteosBusq: [],
   perfil: {},
 };
 
@@ -49,6 +51,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         posteos: [...action.payload],
+        posteosBusq: [...action.payload],
       };
 
     case GET_USER_ACTUAL:
@@ -77,6 +80,22 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         usuariosBusq: searchResult,
+      };
+    }
+    case SEARCH_POSTS: {
+      let removeAccents = (str) => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      };
+      let searchResult = [];
+      searchResult = state.posteos.filter((post) =>
+        removeAccents(post.titulo.toLowerCase()).includes(
+          removeAccents(action.payload.toLowerCase())
+        )
+      );
+
+      return {
+        ...state,
+        posteosBusq: searchResult,
       };
     }
 

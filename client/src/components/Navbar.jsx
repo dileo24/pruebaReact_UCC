@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanUserActual, searchXname } from "../redux/actions";
+import { cleanUserActual, searchPosts, searchXname } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ link }) {
@@ -14,16 +14,21 @@ export default function Navbar({ link }) {
   };
 
   const handleSearch = (e) => {
-    e.preventDefault();
-    if (search !== "") {
-      dispatch(searchXname(search));
+    if (e) {
+      e.preventDefault(); // evita recargar página
+      if (link === "home") {
+        dispatch(searchXname(search));
+      } else if (link === "posteos") {
+        dispatch(searchPosts(search));
+      }
       setSearch("");
     }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      handleSearch();
+      e.preventDefault(); // asegura no enviar un formulario, ejecuta handleSearch
+      handleSearch(e);
     }
   };
 
@@ -33,53 +38,75 @@ export default function Navbar({ link }) {
   };
 
   return (
-    <nav className="navbar bg-body-tertiary px-5">
-      <div className="container-fluid">
-        {link !== "perfil" ? (
-          <form className="d-flex" onSubmit={handleSearch}>
-            <input
-              className="me-2"
-              placeholder="Nombre..."
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              value={search}
-            />
-            <button
-              className="btn btn-outline-primary btn-hover-blue"
-              type="submit"
-            >
-              Búsqueda
-            </button>
-          </form>
-        ) : (
-          <a href="/posts" className="btn btn-primary me-2">
-            Posteos
-          </a>
-        )}
-        {userActual ? (
-          <div>
-            {link === "home" ? (
-              <a href="/posts" className="btn btn-primary me-2">
-                Posteos
-              </a>
+    <>
+      {link !== "home" && (
+        <nav className="navbar bg-body-tertiary px-5">
+          <div className="container-fluid">
+            <form className="d-flex" onSubmit={handleSearch}>
+              <input
+                className="me-2"
+                placeholder="Nombre..."
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                value={search}
+              />
+              <button
+                className="btn btn-outline-primary btn-hover-blue"
+                type="submit"
+              >
+                Búsqueda
+              </button>
+            </form>
+
+            {userActual ? (
+              <div>
+                {link === "usuarios" ? (
+                  <a
+                    href="/posts"
+                    className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover me-4"
+                  >
+                    Posteos
+                  </a>
+                ) : (
+                  <a
+                    href="/usuarios"
+                    className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover me-4"
+                  >
+                    Usuarios
+                  </a>
+                )}
+                <button onClick={cerrarSesion} className="btn btn-primary">
+                  Cerrar sesión
+                </button>
+              </div>
             ) : (
-              <a href="/" className="btn btn-primary me-2">
-                Inicio
-              </a>
+              <div>
+                {link !== "usuarios" ? (
+                  <a
+                    href="/posts"
+                    className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover me-4"
+                  >
+                    Posteos
+                  </a>
+                ) : (
+                  <a
+                    href="/usuarios"
+                    className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover me-4"
+                  >
+                    Usuarios
+                  </a>
+                )}
+                <a
+                  href="/login"
+                  className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                >
+                  Inicio de sesión
+                </a>
+              </div>
             )}
-            <button onClick={cerrarSesion} className="btn btn-primary">
-              Cerrar sesión
-            </button>
           </div>
-        ) : (
-          <a
-            href="/login"
-            className="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-          >
-            Inicio de sesión
-          </a>
-        )}
-      </div>
-    </nav>
+        </nav>
+      )}
+    </>
   );
 }

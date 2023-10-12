@@ -4,14 +4,13 @@ import { getPosteos } from "../redux/actions";
 import Navbar from "./Navbar";
 
 export default function Posts() {
-  const posteos = useSelector((state) => state.posteos);
+  const posteos = useSelector((state) => state.posteosBusq);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosteos());
   }, [dispatch]);
 
-  console.log(posteos);
   return (
     <>
       <Navbar link={"posteos"} />

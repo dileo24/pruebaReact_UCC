@@ -44,18 +44,15 @@ export default function Perfil() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit");
     if (
       emails &&
       emails.filter((email) => email !== userActual.email).includes(input.email)
     ) {
       setRegisterError("El email ingresado ya existe");
     } else {
-      console.log("update");
       dispatch(updateUsuario(userActual.id, input));
     }
   };
-  console.log(userActual.id, id);
   return (
     <>
       <Navbar link="perfil" />

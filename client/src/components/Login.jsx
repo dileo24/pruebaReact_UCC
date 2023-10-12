@@ -31,7 +31,7 @@ export default function Login() {
     if (userEmail) {
       dispatch(getUserActual({ email: input.email, clave: input.clave }))
         .then(() => {
-          navigate("/");
+          navigate("/posts");
         })
         .catch(() => {
           setLoginError("Contraseña incorrecta. Pruebe de nuevo.");
@@ -45,14 +45,11 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
-  const volverFunction = () => {
-    navigate("/");
-  };
   return (
     <div className="loginContainer">
-      <button className="btn btn-primary volver" onClick={volverFunction}>
+      <a className="btn btn-primary volver" href="/">
         Volver
-      </button>
+      </a>
       <div className="CardCont">
         <h1 className="">Inicio de Sesión</h1>
         <div className="cardContainer">

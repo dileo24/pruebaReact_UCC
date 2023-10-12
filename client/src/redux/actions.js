@@ -6,6 +6,7 @@ export const GET_POSTEOS = "GET_POSTEOS";
 export const GET_PROFESIONES = "GET_PROFESIONES";
 export const GET_USER_ACTUAL = "GET_USER_ACTUAL";
 export const CLEAN_USER = "CLEAN_USER";
+export const SEARCH_POSTS = "SEARCH_POSTS";
 export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
 
 export const getProfesiones = () => {
@@ -49,10 +50,15 @@ export const getPosteos = () => {
 };
 
 export const searchXname = (nombre) => {
-  console.log("buscando", nombre);
   return {
     type: SEARCHxNOMBRE,
     payload: nombre,
+  };
+};
+export const searchPosts = (titulo) => {
+  return {
+    type: SEARCH_POSTS,
+    payload: titulo,
   };
 };
 
@@ -102,6 +108,7 @@ export const deleteUsuario = (id) => {
       type: DELETE_USUARIO,
       payload: id,
     });
+    getUsuarios();
   };
 };
 

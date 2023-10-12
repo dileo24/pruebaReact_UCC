@@ -1,18 +1,27 @@
-.homeContainer {
-  padding: 2rem;
-  .usuariosContainer {
-    @include centerRow;
-  }
-  .aviso {
-    text-align: center;
-
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+.containerH {
+  @include centerCol;
+  width: 100vw;
+  .content {
+    @include centerCol;
+    margin: 1.5rem 0 2rem 0;
+    .titulo {
+      margin: 0 0 1rem 0;
+      font-size: 4rem;
+      font-weight: bold;
     }
-
-    button {
+    .text {
+      text-align: center;
+      font-weight: 500;
+      margin: 0 0 1rem 0;
       font-size: 1rem;
     }
+    .button {
+      margin-top: 1rem;
+      width: 50%;
+    }
+  }
+  .image {
+    max-width: 70%;
+    border-radius: 5px;
   }
 }

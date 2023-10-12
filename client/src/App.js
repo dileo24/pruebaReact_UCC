@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
+import Usuarios from "./components/Usuarios";
 import axios from "axios";
 import Login from "./components/Login";
+import Home from "./components/Home";
 import Register from "./components/Register";
 import Posts from "./components/Posts";
 import Perfil from "./components/Perfil";
@@ -14,6 +15,7 @@ function App() {
     <div>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/usuarios" element={<Usuarios />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/posts" element={<Posts />} />
