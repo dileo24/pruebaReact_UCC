@@ -102,6 +102,12 @@ export const register = (userData) => {
   };
 };
 
+export const createPost = (data) => {
+  return async function () {
+    await axios.post("/posts", data);
+  };
+};
+
 export const deleteUsuario = (id) => {
   return async function (dispatch) {
     await axios.delete(`/usuarios/${id}`);
@@ -138,6 +144,12 @@ export const updateUsuario = (id, data) => {
       type: GET_USER_ACTUAL,
       payload: updatedUserActual,
     });
+  };
+};
+
+export const updatePost = (id, data) => {
+  return async function () {
+    await axios.put(`/posts/${id}`, data);
   };
 };
 

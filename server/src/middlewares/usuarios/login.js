@@ -1,4 +1,4 @@
-const { Usuario } = require("../../db");
+const { Usuario, Profesion, Post } = require("../../db");
 const { compare } = require("../../helpers/handleCrypt");
 
 const login = async (req, res, next) => {
@@ -9,6 +9,19 @@ const login = async (req, res, next) => {
     if (typeof email === "string" && typeof clave === "string") {
       let user = await Usuario.findOne({
         where: { email: email },
+        include: [
+          {
+            model: Profesion,
+            attributes: ["id", "profesion"],
+            through: {
+              attributes: [], // excluir tabla intermedia
+            },
+          },
+          {
+            model: Post,
+            attributes: ["id", "titulo", "cuerpo"],
+          },
+        ],
       });
       if (!user) {
         return res.status(404).send({ error: "Usuario no encontrado" });

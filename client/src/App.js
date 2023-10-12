@@ -7,6 +7,7 @@ import Register from "./components/Register";
 import Posts from "./components/Posts";
 import Perfil from "./components/Perfil";
 import NuevoPost from "./components/NuevoPost";
+import EditarPost from "./components/EditarPost";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/posts" element={<Posts />} />
         <Route exact path="/nuevo_post" element={<NuevoPost />} />
         <Route exact path="/usuarios/:id" element={<Perfil />} />
+        <Route exact path="/posts/:id" element={<EditarPost />} />
       </Routes>
     </div>
   );

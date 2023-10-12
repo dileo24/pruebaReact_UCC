@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { createPost, getPosteos } from "../redux/actions";
-import { useNavigate } from "react-router-dom";
+import { getPosteos, updatePost } from "../redux/actions";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function NuevoPost() {
+export default function EditarPost() {
+  const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userActual = useSelector((state) => state.userActual);
+  const posteos = useSelector((state) => state.posteos);
+  const post = posteos.find((post) => post.id === Number(id));
 
   useEffect(() => {
     dispatch(getPosteos());
   }, [dispatch]);
 
   const [input, setInput] = useState({
-    userId: userActual.id,
-    titulo: "",
-    cuerpo: "",
+    titulo: post ? post.titulo : "",
+    cuerpo: post ? post.cuerpo : "",
   });
 
   const handleChange = (e) => {
@@ -24,7 +25,7 @@ export default function NuevoPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPost(input));
+    dispatch(updatePost(id, input));
     navigate("/posts");
     setInput({
       titulo: "",
@@ -38,7 +39,7 @@ export default function NuevoPost() {
         Volver
       </a>
       <div className="CardCont">
-        <h1 className="">Creación de Posteos</h1>
+        <h1 className="">Edición de Posteo</h1>
         <div className="cardContainer">
           <div className="cardLogin ">
             <form onSubmit={handleSubmit} className="formLogin">
@@ -78,7 +79,7 @@ export default function NuevoPost() {
                 name="submit"
                 id="submit"
               >
-                ¡Subir Posteo!
+                ¡Guardar cambios!
               </button>
             </form>
           </div>

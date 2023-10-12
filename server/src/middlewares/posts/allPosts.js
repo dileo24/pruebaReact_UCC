@@ -8,6 +8,7 @@ const allPosts = async (req, res, next) => {
           model: Usuario, // atributos del usuario
         },
       ],
+      order: [["id", "DESC"]],
     });
     req.body.allPosts = { status: 200, resultado: allPosts };
     next();
