@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cleanUserActual,
+  deletePost,
   deleteUsuario,
   getUserID,
   getUsuarios,
@@ -9,16 +10,18 @@ import {
 } from "../redux/actions";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "./Navbar";
+import { Modal, Button } from "react-bootstrap";
 
 export default function Perfil() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const usuarios = useSelector((state) => state.usuarios);
-  const userData = useSelector((state) => state.perfil);
-  const userActual = useSelector((state) => state.userActual);
+  const userData = useSelector((state) => state.perfil); //para los otros perfiles
+  const userActual = useSelector((state) => state.userActual); //para el perfil logeado
   const emails = usuarios && usuarios.map((user) => user.email);
   const [registerError, setRegisterError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     dispatch(getUserID(id));
@@ -31,12 +34,6 @@ export default function Perfil() {
     email: userActual ? userActual.email : "",
     domicilio: userActual ? userActual.domicilio : "",
   });
-
-  const handleEliminar = (id) => {
-    dispatch(deleteUsuario(id));
-    dispatch(cleanUserActual());
-    navigate("/");
-  };
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -53,6 +50,20 @@ export default function Perfil() {
       dispatch(updateUsuario(userActual.id, input));
     }
   };
+
+  const handleModal = (boolean) => {
+    boolean ? setShowModal(true) : setShowModal(false);
+  };
+
+  const handleEliminar = () => {
+    userActual.Posts.map((post) => dispatch(deletePost(post.id)));
+    //borrar posts antes de borrar la cuenta
+    dispatch(deleteUsuario(id));
+    dispatch(cleanUserActual());
+    setShowModal(false);
+    navigate("/");
+  };
+
   return (
     <>
       <Navbar link="perfil" />
@@ -120,14 +131,13 @@ export default function Perfil() {
                       </li>
                       <li className="list-group-item">
                         <label>Cantidad de posteos: </label>{" "}
-                        {userData.Posts && userData.Posts.length}
+                        {userActual.Posts.length}
                       </li>
                       <li className="list-group-item">
                         <label>Profesiones:</label>{" "}
-                        {userData.Profesions &&
-                          userData.Profesions.map(
-                            (prof) => prof.profesion
-                          ).join(", ")}
+                        {userActual.Profesions.map(
+                          (prof) => prof.profesion
+                        ).join(", ")}
                       </li>
                     </ul>
                     <div className="mt-4">
@@ -135,7 +145,7 @@ export default function Perfil() {
                         Guardar Cambios
                       </button>
                       <button
-                        onClick={() => handleEliminar(userData.id)}
+                        onClick={() => handleModal(true)} //modal
                         className="btn btn-danger"
                       >
                         Borrar cuenta
@@ -175,7 +185,24 @@ export default function Perfil() {
               )}
             </div>
           </div>
-        )}
+        )}{" "}
+        <Modal show={showModal} onHide={() => handleModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirma el borrado de tu cuenta...</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            ¿Seguro que querés eliminar tu cuenta? No vas a poder recuperarla
+            después.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => handleModal(false)}>
+              Cancelar
+            </Button>
+            <Button variant="danger" onClick={handleEliminar}>
+              Eliminar
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

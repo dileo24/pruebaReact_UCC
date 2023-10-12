@@ -43,7 +43,7 @@ export default function Usuarios() {
       ) : (
         <div className="homeContainer">
           <div className="aviso">
-            <h1>Usuario no encontrado!</h1>
+            <h1>¡Usuario no encontrado!</h1>
             <button className="btn btn-primary" onClick={recargarUsuarios}>
               Recargar lista completa de usuarios.
             </button>

@@ -76,17 +76,14 @@ export default function Register() {
     dispatch(getUsuarios());
   }, [dispatch]);
 
-  // Función de validación de email
-
-  const volverFunction = () => {
-    navigate("/login");
-  };
-
   return (
     <div className="registerContainer">
-      <button className="btn btn-primary volver" onClick={volverFunction}>
+      <a href="/login" className="btn btn-primary volver">
         Volver
-      </button>
+      </a>
+      <a className="btn btn-primary avanzar" href="/posts">
+        Avanzar sin cuenta
+      </a>
       <div className="CardCont">
         <h1 className="">Creación de Usuarios</h1>
         <div className="cardContainer">

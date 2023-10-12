@@ -1,4 +1,8 @@
 .container {
+  .pags {
+    @include center;
+    margin: -1rem 0 2rem 0;
+  }
   .cardPost {
     border-bottom: 0.5px solid rgb(189, 189, 189);
     margin-bottom: 3rem;

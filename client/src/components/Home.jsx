@@ -19,7 +19,7 @@ export default function Home() {
               página.
             </p>
           </div>
-          <a href="/posts" className="btn btn-primary">
+          <a href="/login" className="btn btn-primary">
             ¡Empieza a interactuar!
           </a>
         </div>

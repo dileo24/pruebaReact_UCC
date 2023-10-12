@@ -50,6 +50,10 @@ export default function Login() {
       <a className="btn btn-primary volver" href="/">
         Volver
       </a>
+      <a className="btn btn-primary avanzar" href="/posts">
+        Avanzar sin cuenta
+      </a>
+
       <div className="CardCont">
         <h1 className="">Inicio de Sesión</h1>
         <div className="cardContainer">

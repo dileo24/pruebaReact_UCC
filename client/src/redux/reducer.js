@@ -8,6 +8,7 @@ import {
   GET_USUARIOS,
   SEARCH_POSTS,
   SEARCHxNOMBRE,
+  DELETE_POST,
 } from "./actions.js";
 
 const initialState = {
@@ -33,6 +34,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         usuarios: state.usuarios.filter((user) => user.id !== action.payload),
+      };
+    case DELETE_POST:
+      return {
+        ...state,
+        posteos: state.posteos.filter((user) => user.id !== action.payload),
       };
 
     case GET_PERFIL:

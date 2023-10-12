@@ -8,6 +8,7 @@ export const GET_USER_ACTUAL = "GET_USER_ACTUAL";
 export const CLEAN_USER = "CLEAN_USER";
 export const SEARCH_POSTS = "SEARCH_POSTS";
 export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
+export const DELETE_POST = "DELETE_POST";
 
 export const getProfesiones = () => {
   return async function (dispatch) {
@@ -109,6 +110,16 @@ export const deleteUsuario = (id) => {
       payload: id,
     });
     getUsuarios();
+  };
+};
+
+export const deletePost = (id) => {
+  return async function (dispatch) {
+    await axios.delete(`/posts/${id}`);
+    dispatch({
+      type: DELETE_POST,
+      payload: id,
+    });
   };
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cleanUserActual, searchPosts, searchXname } from "../redux/actions";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function Navbar({ link }) {
   const userActual = useSelector((state) => state.userActual);
   const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ export default function Navbar({ link }) {
         dispatch(searchPosts(search));
       }
       setSearch("");
+      setCurrentPage(1);
     }
   };
 
@@ -36,6 +38,10 @@ export default function Navbar({ link }) {
     dispatch(cleanUserActual());
     navigate("/");
   };
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [link]);
 
   return (
     <>
