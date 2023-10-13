@@ -36,7 +36,6 @@ export default function Posts() {
   };
 
   const handlePostFunction = (id, type) => {
-    console.log(id, type);
     if (type === "borrar") {
       dispatch(deletePost(id)).then(() => {
         dispatch(getPosteos());

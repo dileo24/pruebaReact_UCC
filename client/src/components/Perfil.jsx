@@ -57,6 +57,7 @@ export default function Perfil() {
   };
 
   const handleModal = (boolean) => {
+    setMensaje(false);
     boolean ? setShowModal(true) : setShowModal(false);
   };
 
@@ -155,6 +156,7 @@ export default function Perfil() {
                       )}
 
                       <button
+                        type="button"
                         onClick={() => handleModal(true)} //modal
                         className="btn btn-danger"
                       >
