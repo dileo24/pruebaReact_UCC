@@ -10,6 +10,7 @@ export const SEARCH_POSTS = "SEARCH_POSTS";
 export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
 export const DELETE_POST = "DELETE_POST";
 
+//**********************USUARIOS**********************
 export const getProfesiones = () => {
   return async function (dispatch) {
     const response = await axios.get("/profesiones");
@@ -40,26 +41,10 @@ export const getUserID = (id) => {
   };
 };
 
-export const getPosteos = () => {
-  return async function (dispatch) {
-    const response = await axios.get("/posts");
-    return dispatch({
-      type: GET_POSTEOS,
-      payload: response.data.resultado,
-    });
-  };
-};
-
 export const searchXname = (nombre) => {
   return {
     type: SEARCHxNOMBRE,
     payload: nombre,
-  };
-};
-export const searchPosts = (titulo) => {
-  return {
-    type: SEARCH_POSTS,
-    payload: titulo,
   };
 };
 
@@ -102,13 +87,6 @@ export const register = (userData) => {
   };
 };
 
-export const createPost = (data) => {
-  return async function () {
-    await axios.post("/posts", data);
-    getPosteos();
-  };
-};
-
 export const deleteUsuario = (id, claveAntigua) => {
   return async function (dispatch) {
     await axios.delete(`/usuarios/${id}`, { data: { claveAntigua } });
@@ -117,16 +95,6 @@ export const deleteUsuario = (id, claveAntigua) => {
       payload: id,
     });
     getUsuarios();
-  };
-};
-
-export const deletePost = (id) => {
-  return async function (dispatch) {
-    await axios.delete(`/posts/${id}`);
-    dispatch({
-      type: DELETE_POST,
-      payload: id,
-    });
   };
 };
 
@@ -148,14 +116,50 @@ export const updateUsuario = (id, data) => {
   };
 };
 
-export const updatePost = (id, data) => {
-  return async function () {
-    await axios.put(`/posts/${id}`, data);
-  };
-};
-
 export function cleanUserActual() {
   return {
     type: CLEAN_USER,
   };
 }
+
+//**********************POSTEOS**********************
+export const getPosteos = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/posts");
+    return dispatch({
+      type: GET_POSTEOS,
+      payload: response.data.resultado,
+    });
+  };
+};
+
+export const searchPosts = (titulo) => {
+  return {
+    type: SEARCH_POSTS,
+    payload: titulo,
+  };
+};
+export const createPost = (data) => {
+  return async function () {
+    await axios.post("/posts", data);
+    getPosteos();
+  };
+};
+
+export const deletePost = (id) => {
+  return async function (dispatch) {
+    await axios.delete(`/posts/${id}`);
+    dispatch({
+      type: DELETE_POST,
+      payload: id,
+    });
+    getPosteos();
+  };
+};
+
+export const updatePost = (id, data) => {
+  return async function () {
+    await axios.put(`/posts/${id}`, data);
+    getPosteos();
+  };
+};
