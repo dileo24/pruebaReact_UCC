@@ -17,13 +17,14 @@ export default function Pagination({
       <ul className="pagination">
         {pageNumber.map((num) => {
           return (
-            <button
+            <a
+              href="#"
               className={currentPage !== num ? "numberList" : "current"}
               key={num}
               onClick={() => paginated(num)}
             >
               {num}
-            </button>
+            </a>
           );
         })}
       </ul>

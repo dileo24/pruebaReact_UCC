@@ -1,0 +1,11 @@
+.botonesPerf {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px; /* Altura fija deseada */
+}
+
+.alert-success {
+  margin: 0; /* Elimina el margen superior e inferior de la alerta */
+  padding: 10px; /* Agrega un relleno para que coincida con la altura deseada */
+}

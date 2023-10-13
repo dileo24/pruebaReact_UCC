@@ -31,12 +31,15 @@ export default function NuevoPost() {
       cuerpo: "",
     });
   };
+  const volverFunc = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="registerContainer">
-      <a href="/posts" className="btn btn-primary volver">
+      <button onClick={volverFunc} className="btn btn-primary volver">
         Volver
-      </a>
+      </button>
       <div className="CardCont">
         <h1 className="">Creación de Posteos</h1>
         <div className="cardContainer">

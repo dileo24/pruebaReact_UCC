@@ -10,7 +10,7 @@ import {
 } from "../redux/actions";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "./Navbar";
-import { Modal, Button } from "react-bootstrap";
+import ModalComponent from "./Modal";
 
 export default function Perfil() {
   const { id } = useParams();
@@ -22,6 +22,7 @@ export default function Perfil() {
   const emails = usuarios && usuarios.map((user) => user.email);
   const [registerError, setRegisterError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [mensaje, setMensaje] = useState(false);
 
   useEffect(() => {
     dispatch(getUserID(id));
@@ -48,6 +49,10 @@ export default function Perfil() {
       setRegisterError("El email ingresado ya existe");
     } else {
       dispatch(updateUsuario(userActual.id, input));
+      setMensaje(true);
+      setTimeout(() => {
+        setMensaje(false);
+      }, 1750);
     }
   };
 
@@ -63,7 +68,6 @@ export default function Perfil() {
     setShowModal(false);
     navigate("/");
   };
-
   return (
     <>
       <Navbar link="perfil" />
@@ -131,7 +135,7 @@ export default function Perfil() {
                       </li>
                       <li className="list-group-item">
                         <label>Cantidad de posteos: </label>{" "}
-                        {userActual.Posts.length}
+                        {userActual.Posts ? userActual.Posts.length : "0"}
                       </li>
                       <li className="list-group-item">
                         <label>Profesiones:</label>{" "}
@@ -140,10 +144,16 @@ export default function Perfil() {
                         ).join(", ")}
                       </li>
                     </ul>
-                    <div className="mt-4">
+                    <div className="botonesPerf mt-4 d-flex justify-content-between">
                       <button type="submit" className="btn btn-primary me-2">
                         Guardar Cambios
                       </button>
+                      {mensaje && (
+                        <div className="alert alert-success" role="alert">
+                          Guardado correctamente
+                        </div>
+                      )}
+
                       <button
                         onClick={() => handleModal(true)} //modal
                         className="btn btn-danger"
@@ -185,24 +195,16 @@ export default function Perfil() {
               )}
             </div>
           </div>
-        )}{" "}
-        <Modal show={showModal} onHide={() => handleModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Confirma el borrado de tu cuenta...</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            ¿Seguro que querés eliminar tu cuenta? No vas a poder recuperarla
-            después.
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => handleModal(false)}>
-              Cancelar
-            </Button>
-            <Button variant="danger" onClick={handleEliminar}>
-              Eliminar
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        )}
+        <ModalComponent
+          showModal={showModal}
+          handleModal={handleModal}
+          funcion={handleEliminar}
+          body={
+            "¿Seguro que querés eliminar tu cuenta? No vas a poder recuperarla después."
+          }
+          title={"Confirma el borrado de tu cuenta..."}
+        />
       </div>
     </>
   );

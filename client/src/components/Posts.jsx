@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import Pagination from "./Pagination";
 import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
+import ModalComponent from "./Modal";
 
 export default function Posts() {
   const posts = useSelector((state) => state.posteosBusq);
@@ -23,7 +23,7 @@ export default function Posts() {
   }, [dispatch]);
 
   const [currentPage, setCurrentPage] = useState(1); // guardar en un estado local la página actual
-  const [postsPorPag, setDogsPerPage] = useState(8); // 8 posts por página
+  const [postsPorPag] = useState(8); // 8 posts por página
   const indexOfLast = currentPage * postsPorPag; // en un principio va a ser 8
   const indexOfFirst = indexOfLast - postsPorPag; // 0
   const currentPosts = posts.slice(indexOfFirst, indexOfLast); // toma solamente entre el índice del prim y el ult
@@ -46,24 +46,28 @@ export default function Posts() {
       navigate(`/posts/${id}`);
     }
   };
-
+  /* console.log(posts, currentPosts); */
   return (
     <>
-      <Navbar link={"posteos"} />
+      <Navbar link={"posteos"} setCurrentPage={setCurrentPage} />
       {currentPosts.length > 0 ? (
         <div className="container mt-4">
-          <a href="/nuevo_post" className="btn btn-primary mb-2">
-            Crear Post
-          </a>
+          {userActual && (
+            <a href="/nuevo_post" className="btn btn-primary mb-2">
+              Crear Post
+            </a>
+          )}
 
-          {currentPosts?.map((post) => (
+          {currentPosts.map((post) => (
             <div
               className={`cardPost${
-                post.Usuario.id === userActual.id ? " userCard" : ""
+                userActual && post.UsuarioId === userActual.id
+                  ? " userCard"
+                  : ""
               }`}
               key={post.id}
             >
-              {post.Usuario.id === userActual.id && (
+              {userActual && post.UsuarioId === userActual.id && (
                 <div className="navPost">
                   <p className="vos">VOS</p>
                   <div className="buttonsPost">
@@ -76,35 +80,19 @@ export default function Posts() {
                       onClick={() => handleModal(true)}
                     ></BsFillTrashFill>
                   </div>
-                  <Modal show={showModal} onHide={() => handleModal(false)}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>
-                        Confirma el borrado del posteo...
-                      </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      ¿Seguro que querés eliminar tu posteo? No vas a poder
-                      recuperarlo después.
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button
-                        variant="secondary"
-                        onClick={() => handleModal(false)}
-                      >
-                        Cancelar
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => handlePostFunction(post.id, "borrar")}
-                      >
-                        Eliminar
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
+                  <ModalComponent
+                    showModal={showModal}
+                    handleModal={handleModal}
+                    funcion={() => handlePostFunction(post.id, "borrar")}
+                    body={
+                      "¿Seguro que querés eliminar tu posteo? No vas a poder recuperarlo después."
+                    }
+                    title={"Confirma el borrado del posteo..."}
+                  />
                 </div>
               )}
               <p className="title">{post.titulo}</p>
-              <a href={`/usuarios/${post.Usuario.id}`} className="autor">
+              <a href={`/usuarios/${post.UsuarioId}`} className="autor">
                 {`${post.Usuario.nombre} ${post.Usuario.apellido}`}
               </a>
               <p className="cuerpo">{post.cuerpo}</p>

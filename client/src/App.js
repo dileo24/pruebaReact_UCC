@@ -8,10 +8,13 @@ import Posts from "./components/Posts";
 import Perfil from "./components/Perfil";
 import NuevoPost from "./components/NuevoPost";
 import EditarPost from "./components/EditarPost";
+import { useSelector } from "react-redux";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
 function App() {
+  const userActual = useSelector((state) => state.userActual);
+
   return (
     <div>
       <Routes>
@@ -20,9 +23,13 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/posts" element={<Posts />} />
-        <Route exact path="/nuevo_post" element={<NuevoPost />} />
         <Route exact path="/usuarios/:id" element={<Perfil />} />
-        <Route exact path="/posts/:id" element={<EditarPost />} />
+        {userActual !== null && (
+          <>
+            <Route exact path="/nuevo_post" element={<NuevoPost />} />
+            <Route exact path="/posts/:id" element={<EditarPost />} />
+          </>
+        )}
       </Routes>
     </div>
   );

@@ -43,7 +43,7 @@ const createUsuario = async (req, res, next) => {
             await newUsuario.addProfesion(profesion);
             profesionesArray.push({
               id: profesion.id,
-              nombre: profesion.profesion,
+              profesion: profesion.profesion,
             });
           } else {
             throw new Error("No existe esa profesión! Id: ", profID);
@@ -58,7 +58,7 @@ const createUsuario = async (req, res, next) => {
         email: newUsuario.email,
         domicilio: newUsuario.domicilio,
         clave: newUsuario.clave,
-        profesiones: profesionesArray,
+        Profesions: profesionesArray,
       };
       next();
     } else {

@@ -45,11 +45,14 @@ export default function Login() {
     setShowPassword(!showPassword);
   };
 
+  const volverFunc = () => {
+    navigate(-1);
+  };
   return (
     <div className="loginContainer">
-      <a className="btn btn-primary volver" href="/">
+      <button onClick={volverFunc} className="btn btn-primary volver">
         Volver
-      </a>
+      </button>
       <a className="btn btn-primary avanzar" href="/posts">
         Avanzar sin cuenta
       </a>

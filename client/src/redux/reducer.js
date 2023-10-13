@@ -98,7 +98,6 @@ function rootReducer(state = initialState, action) {
           removeAccents(action.payload.toLowerCase())
         )
       );
-
       return {
         ...state,
         posteosBusq: searchResult,

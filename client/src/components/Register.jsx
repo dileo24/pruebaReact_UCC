@@ -55,7 +55,7 @@ export default function Register() {
     } else {
       input.profesiones = selectedProfesiones;
       dispatch(register(input));
-      navigate("/");
+      navigate("/posts");
       setInput({
         email: "",
         clave: "",
@@ -76,11 +76,15 @@ export default function Register() {
     dispatch(getUsuarios());
   }, [dispatch]);
 
+  const volverFunc = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="registerContainer">
-      <a href="/login" className="btn btn-primary volver">
+      <button onClick={volverFunc} className="btn btn-primary volver">
         Volver
-      </a>
+      </button>
       <a className="btn btn-primary avanzar" href="/posts">
         Avanzar sin cuenta
       </a>
