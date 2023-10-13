@@ -62,7 +62,7 @@ export default function Perfil() {
   };
 
   const handleEliminar = () => {
-    userActual.Posts.map((post) => dispatch(deletePost(post.id)));
+    /*  userActual.Posts.map((post) => dispatch(deletePost(post.id))); */
     //borrar posts antes de borrar la cuenta
     dispatch(deleteUsuario(id));
     dispatch(cleanUserActual());

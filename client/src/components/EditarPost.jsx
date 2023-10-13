@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getPosteos, updatePost } from "../redux/actions";
+import { deletePost, getPosteos, updatePost } from "../redux/actions";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { BsFillTrashFill } from "react-icons/bs";
+import ModalComponent from "./Modal";
 
 export default function EditarPost() {
   const { id } = useParams();
@@ -9,15 +11,30 @@ export default function EditarPost() {
   const dispatch = useDispatch();
   const posteos = useSelector((state) => state.posteos);
   const post = posteos.find((post) => post.id === Number(id));
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModal = (boolean) => {
+    boolean ? setShowModal(true) : setShowModal(false);
+  };
 
   useEffect(() => {
     dispatch(getPosteos());
   }, [dispatch]);
 
   const [input, setInput] = useState({
-    titulo: post ? post.titulo : "",
-    cuerpo: post ? post.cuerpo : "",
+    titulo: "",
+    cuerpo: "",
   });
+
+  // precargar datos del post cuando esté disponible
+  useEffect(() => {
+    if (post) {
+      setInput({
+        titulo: post.titulo,
+        cuerpo: post.cuerpo,
+      });
+    }
+  }, [post]);
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -36,7 +53,13 @@ export default function EditarPost() {
   const volverFunc = () => {
     navigate(-1);
   };
-
+  const handleDelete = (id) => {
+    dispatch(deletePost(id)).then(() => {
+      dispatch(getPosteos());
+    });
+    handleModal(false);
+    navigate(`/posts`);
+  };
   return (
     <div className="registerContainer">
       <button onClick={volverFunc} className="btn btn-primary volver">
@@ -76,19 +99,33 @@ export default function EditarPost() {
                   required
                 />
               </div>
-
-              <button
-                type="submit"
-                className="submitBtn"
-                name="submit"
-                id="submit"
-              >
-                ¡Guardar cambios!
-              </button>
+              <div className="buttonss">
+                <button
+                  type="submit"
+                  className="subBtn"
+                  name="submit"
+                  id="submit"
+                >
+                  ¡Guardar cambios!
+                </button>
+                <BsFillTrashFill
+                  className="icon"
+                  onClick={() => handleModal(true)}
+                ></BsFillTrashFill>
+              </div>
             </form>
           </div>
         </div>
       </div>
+      <ModalComponent
+        showModal={showModal}
+        handleModal={handleModal}
+        funcion={() => handleDelete(post.id)}
+        body={
+          "¿Seguro que querés eliminar tu posteo? No vas a poder recuperarlo después."
+        }
+        title={"Confirma el borrado del posteo..."}
+      />
     </div>
   );
 }

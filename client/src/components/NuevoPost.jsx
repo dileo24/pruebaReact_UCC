@@ -77,7 +77,7 @@ export default function NuevoPost() {
 
               <button
                 type="submit"
-                className="submitBtn"
+                className="submitBtn2"
                 name="submit"
                 id="submit"
               >

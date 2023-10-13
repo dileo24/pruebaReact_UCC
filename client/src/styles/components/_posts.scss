@@ -8,14 +8,13 @@
     display: flex;
     justify-content: space-between;
     .buttonsPost {
-      width: 5%;
       display: flex;
       justify-content: space-between;
-
       .icon {
         margin: 0.5rem 0.5rem 0 0;
         font-size: 1.5rem;
         cursor: pointer;
+        color: black;
       }
       .icon:hover {
         border: 1px solid rgb(0, 162, 202);

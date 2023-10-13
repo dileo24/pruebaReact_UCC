@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletePost, getPosteos } from "../redux/actions";
+import { getPosteos } from "../redux/actions";
 import Navbar from "./Navbar";
 import Pagination from "./Pagination";
-import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-import ModalComponent from "./Modal";
+import { BsFillPencilFill } from "react-icons/bs";
 
 export default function Posts() {
   const posts = useSelector((state) => state.posteosBusq);
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
-
-  const handleModal = (boolean) => {
-    boolean ? setShowModal(true) : setShowModal(false);
-  };
 
   useEffect(() => {
     dispatch(getPosteos());
@@ -35,17 +27,6 @@ export default function Posts() {
     dispatch(getPosteos());
   };
 
-  const handlePostFunction = (id, type) => {
-    if (type === "borrar") {
-      dispatch(deletePost(id)).then(() => {
-        dispatch(getPosteos());
-      });
-      handleModal(false);
-    } else {
-      navigate(`/posts/${id}`);
-    }
-  };
-  /* console.log(posts, currentPosts); */
   return (
     <>
       <Navbar link={"posteos"} setCurrentPage={setCurrentPage} />
@@ -70,29 +51,16 @@ export default function Posts() {
                 <div className="navPost">
                   <p className="vos">VOS</p>
                   <div className="buttonsPost">
-                    <BsFillPencilFill
-                      className="icon"
-                      onClick={() => handlePostFunction(post.id, "editar")}
-                    ></BsFillPencilFill>
-                    <BsFillTrashFill
-                      className="icon"
-                      onClick={() => handleModal(true)}
-                    ></BsFillTrashFill>
+                    <a href={`/posts/${post.id}`}>
+                      <BsFillPencilFill className="icon"></BsFillPencilFill>
+                    </a>
                   </div>
-                  <ModalComponent
-                    showModal={showModal}
-                    handleModal={handleModal}
-                    funcion={() => handlePostFunction(post.id, "borrar")}
-                    body={
-                      "¿Seguro que querés eliminar tu posteo? No vas a poder recuperarlo después."
-                    }
-                    title={"Confirma el borrado del posteo..."}
-                  />
                 </div>
               )}
               <p className="title">{post.titulo}</p>
               <a href={`/usuarios/${post.UsuarioId}`} className="autor">
-                {`${post.Usuario.nombre} ${post.Usuario.apellido}`}
+                {post.Usuario &&
+                  `${post.Usuario.nombre} ${post.Usuario.apellido}`}
               </a>
               <p className="cuerpo">{post.cuerpo}</p>
             </div>
