@@ -83,11 +83,23 @@ export default function Perfil() {
     boolean ? setShowModal(true) : setShowModal(false);
   };
 
-  const handleEliminar = () => {
-    dispatch(deleteUsuario(id));
-    dispatch(cleanUserActual());
-    setShowModal(false);
-    navigate("/");
+  const handleEliminar = (e) => {
+    e.preventDefault();
+    dispatch(deleteUsuario(id, input.claveAntigua))
+      .then(() => {
+        dispatch(cleanUserActual());
+        setShowModal(false);
+        navigate("/");
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 400) {
+          setShowModal(false);
+          setError("Contraseña incorrecta. Pruebe de nuevo.");
+          setTimeout(() => {
+            setError("");
+          }, 2500);
+        }
+      });
   };
   return (
     <>

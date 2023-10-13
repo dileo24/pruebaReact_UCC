@@ -105,12 +105,13 @@ export const register = (userData) => {
 export const createPost = (data) => {
   return async function () {
     await axios.post("/posts", data);
+    getPosteos();
   };
 };
 
-export const deleteUsuario = (id) => {
+export const deleteUsuario = (id, claveAntigua) => {
   return async function (dispatch) {
-    await axios.delete(`/usuarios/${id}`);
+    await axios.delete(`/usuarios/${id}`, { data: { claveAntigua } });
     dispatch({
       type: DELETE_USUARIO,
       payload: id,

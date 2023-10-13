@@ -10,7 +10,10 @@ import NuevoPost from "./components/NuevoPost";
 import EditarPost from "./components/EditarPost";
 import { useSelector } from "react-redux";
 
+//local
 axios.defaults.baseURL = "http://localhost:3001";
+
+//deploy
 /* axios.defaults.baseURL = "https://uccserver.onrender.com"; */
 
 function App() {
