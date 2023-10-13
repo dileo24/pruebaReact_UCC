@@ -30,10 +30,6 @@ Crear una base de datos llamada -> prueba_react
 
 Paso 4:
 
-Verificar que en el archivo db.js esté comentada la opción de "deploy" y descomendata la opción "local"
-
-Paso 5:
-
 Inicializar el backend escribiendo en la terminal...
 
 ```
