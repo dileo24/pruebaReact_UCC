@@ -6,7 +6,7 @@ Primeros Pasos a realizar:
 
 Paso 1:
 
-Recordar hacer npm install, ya que el gitignore esta ignorando los paquetes
+Recordar hacer npm install, ya que el gitignore esta ignorando los paquetes(node_modules)
 
 Paso 2:
 
@@ -29,6 +29,10 @@ Conexion Base de Datos:
 Crear una base de datos llamada -> prueba_react
 
 Paso 4:
+
+Verificar que en el archivo db.js esté comentada la opción de "deploy" y descomendata la opción "local"
+
+Paso 5:
 
 Inicializar el backend escribiendo en la terminal...
 
