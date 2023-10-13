@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node ./index.js",
+    "start": "node index.js",
     "test": "mocha -w ./tests/**/*.spec.js"
   },
   "dependencies": {
@@ -24,7 +24,7 @@
     "nodemon": "^2.0.22"
   },
   "name": "server",
-  "description": "Backend de la aplicación para UCC",
+  "description": "Backend de la aplicación PruebaReact",
   "version": "1.0.0",
   "main": "index.js",
   "keywords": [],

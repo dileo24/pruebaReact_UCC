@@ -5,7 +5,7 @@ const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
 
 //local
-/* const sequelize = new Sequelize(
+const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/prueba_react`,
   {
     logging: false,
@@ -14,16 +14,16 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
       timestamps: false,
     },
   }
-); */
+);
 
 // Deploy
-const sequelize = new Sequelize(DB_DEPLOY, {
+/* const sequelize = new Sequelize(DB_DEPLOY, {
   logging: false,
   native: false,
   define: {
     timestamps: false,
   },
-});
+}); */
 
 const basename = path.basename(__filename);
 

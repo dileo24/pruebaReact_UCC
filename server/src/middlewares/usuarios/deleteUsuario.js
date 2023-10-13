@@ -1,4 +1,4 @@
-const { Usuario } = require("../../db");
+const { Usuario, Post } = require("../../db");
 
 const deleteUsuario = async (req, res, next) => {
   try {
@@ -7,6 +7,8 @@ const deleteUsuario = async (req, res, next) => {
     if (!usuario) {
       throw new Error(`No existe el Usuario con el ID: ${id}`);
     }
+
+    await Post.destroy({ where: { UsuarioId: usuario.id } });
     await Usuario.destroy({ where: { id: usuario.id } });
     req.body.eliminado = {
       status: 200,
