@@ -1,5 +1,5 @@
 import React from "react";
-import userIMG from "../multimedia/64096.png";
+import userIMG from "../../multimedia/64096.png";
 import { useSelector } from "react-redux";
 
 export default function Card({ id, nombre, apellido, goPerfil }) {

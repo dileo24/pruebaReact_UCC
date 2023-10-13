@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosteos } from "../redux/actions";
-import Navbar from "./Navbar";
-import Pagination from "./Pagination";
+import { getPosteos } from "../../redux/actions";
+import Navbar from "../recursos/Navbar";
+import Pagination from "../recursos/Pagination";
 import { BsFillPencilFill } from "react-icons/bs";
 
 export default function Posts() {
