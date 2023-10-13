@@ -105,6 +105,7 @@ export const register = (userData) => {
 export const createPost = (data) => {
   return async function () {
     await axios.post("/posts", data);
+    getPosteos();
   };
 };
 
@@ -150,6 +151,7 @@ export const updateUsuario = (id, data) => {
 export const updatePost = (id, data) => {
   return async function () {
     await axios.put(`/posts/${id}`, data);
+    getPosteos();
   };
 };
 
