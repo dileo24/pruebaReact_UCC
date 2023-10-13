@@ -23,6 +23,7 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    //**********************USUARIOS**********************
     case GET_USUARIOS:
       return {
         ...state,
@@ -35,11 +36,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         usuarios: state.usuarios.filter((user) => user.id !== action.payload),
       };
-    case DELETE_POST:
-      return {
-        ...state,
-        posteos: state.posteos.filter((user) => user.id !== action.payload),
-      };
 
     case GET_PERFIL:
       return {
@@ -51,13 +47,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         profesiones: [...action.payload],
-      };
-
-    case GET_POSTEOS:
-      return {
-        ...state,
-        posteos: [...action.payload],
-        posteosBusq: [...action.payload],
       };
 
     case GET_USER_ACTUAL:
@@ -88,6 +77,21 @@ function rootReducer(state = initialState, action) {
         usuariosBusq: searchResult,
       };
     }
+
+    //**********************POSTEOS**********************
+    case DELETE_POST:
+      return {
+        ...state,
+        posteos: state.posteos.filter((user) => user.id !== action.payload),
+      };
+
+    case GET_POSTEOS:
+      return {
+        ...state,
+        posteos: [...action.payload],
+        posteosBusq: [...action.payload],
+      };
+
     case SEARCH_POSTS: {
       let removeAccents = (str) => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -110,10 +114,10 @@ function rootReducer(state = initialState, action) {
       };
   }
 }
-
+//agarra el usuario almacenado en localstorage, se hace cada vez que se inicia la app
 const storedUserActual = localStorage.getItem("userActual");
 if (storedUserActual) {
-  initialState.userActual = JSON.parse(storedUserActual);
+  initialState.userActual = JSON.parse(storedUserActual); //se parsea a json porque viene como una cadena de texto
 }
 
 export default rootReducer;
