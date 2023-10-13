@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanUserActual, searchPosts, searchXname } from "../redux/actions";
+import { cleanUserActual, searchPosts, searchXname } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ link, setCurrentPage }) {

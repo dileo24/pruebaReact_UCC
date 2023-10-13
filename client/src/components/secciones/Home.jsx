@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "./Navbar";
-import fondo from "../multimedia/fondo.png";
+import Navbar from "../recursos/Navbar";
+import fondo from "../../multimedia/fondo.png";
 
 export default function Home() {
   return (

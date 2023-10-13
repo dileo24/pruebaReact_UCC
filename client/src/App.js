@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import Usuarios from "./components/Usuarios";
+import Usuarios from "./components/secciones/Usuarios";
 import axios from "axios";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import Register from "./components/Register";
-import Posts from "./components/Posts";
-import Perfil from "./components/Perfil";
-import NuevoPost from "./components/NuevoPost";
-import EditarPost from "./components/EditarPost";
+import Login from "./components/forms/Login";
+import Home from "./components/secciones/Home";
+import Register from "./components/forms/Register";
+import Posts from "./components/secciones/Posts";
+import Perfil from "./components/secciones/Perfil";
+import NuevoPost from "./components/forms/NuevoPost";
+import EditarPost from "./components/forms/EditarPost";
 import { useSelector } from "react-redux";
 
 axios.defaults.baseURL = "http://localhost:3001";

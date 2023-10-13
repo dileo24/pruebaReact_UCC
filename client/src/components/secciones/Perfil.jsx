@@ -6,10 +6,10 @@ import {
   getUserID,
   getUsuarios,
   updateUsuario,
-} from "../redux/actions";
+} from "../../redux/actions";
 import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "./Navbar";
-import ModalComponent from "./Modal";
+import Navbar from "../recursos/Navbar";
+import ModalComponent from "../recursos/Modal";
 import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
 export default function Perfil() {
