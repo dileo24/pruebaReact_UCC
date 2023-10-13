@@ -9,3 +9,16 @@
   margin: 0; /* Elimina el margen superior e inferior de la alerta */
   padding: 10px; /* Agrega un relleno para que coincida con la altura deseada */
 }
+
+.errorText {
+  color: red;
+}
+
+.inputt {
+  display: flex;
+  flex-direction: row;
+  .ojoCerrado,
+  .ojoAbierto {
+    font-size: 2.4rem;
+  }
+}

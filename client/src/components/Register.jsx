@@ -205,7 +205,7 @@ export default function Register() {
               {registerError && <p className="errorText">{registerError}</p>}
               <button
                 type="submit"
-                className="submitBtn"
+                className="submitBtn2"
                 name="submit"
                 id="submit"
               >
