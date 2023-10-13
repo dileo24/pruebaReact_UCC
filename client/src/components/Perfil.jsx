@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cleanUserActual,
-  deletePost,
   deleteUsuario,
   getUserID,
   getUsuarios,
@@ -11,6 +10,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "./Navbar";
 import ModalComponent from "./Modal";
+import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
 export default function Perfil() {
   const { id } = useParams();
@@ -20,9 +20,10 @@ export default function Perfil() {
   const userData = useSelector((state) => state.perfil); //para los otros perfiles
   const userActual = useSelector((state) => state.userActual); //para el perfil logeado
   const emails = usuarios && usuarios.map((user) => user.email);
-  const [registerError, setRegisterError] = useState(null);
+  const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [mensaje, setMensaje] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     dispatch(getUserID(id));
@@ -31,6 +32,8 @@ export default function Perfil() {
 
   const [input, setInput] = useState({
     nombre: userActual ? userActual.nombre : "",
+    clave: "",
+    claveAntigua: "",
     apellido: userActual ? userActual.apellido : "",
     email: userActual ? userActual.email : "",
     domicilio: userActual ? userActual.domicilio : "",
@@ -46,14 +49,33 @@ export default function Perfil() {
       emails &&
       emails.filter((email) => email !== userActual.email).includes(input.email)
     ) {
-      setRegisterError("El email ingresado ya existe");
+      setError("El email ingresado ya existe");
     } else {
-      dispatch(updateUsuario(userActual.id, input));
-      setMensaje(true);
-      setTimeout(() => {
-        setMensaje(false);
-      }, 1750);
+      dispatch(updateUsuario(userActual.id, input))
+        .then(() => {
+          setMensaje(true);
+          setTimeout(() => {
+            setMensaje(false);
+            setInput({
+              ...input,
+              clave: "",
+              claveAntigua: "",
+            });
+          }, 1750);
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 400) {
+            setError("Contraseña incorrecta. Pruebe de nuevo.");
+            setTimeout(() => {
+              setError("");
+            }, 2500);
+          }
+        });
     }
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleModal = (boolean) => {
@@ -62,8 +84,6 @@ export default function Perfil() {
   };
 
   const handleEliminar = () => {
-    /*  userActual.Posts.map((post) => dispatch(deletePost(post.id))); */
-    //borrar posts antes de borrar la cuenta
     dispatch(deleteUsuario(id));
     dispatch(cleanUserActual());
     setShowModal(false);
@@ -119,9 +139,42 @@ export default function Perfil() {
                           required
                           value={input.email}
                         />
-                        {registerError && (
-                          <p className="errorText">{registerError}</p>
-                        )}
+                      </li>
+                      <li className="list-group-item">
+                        <label>
+                          Contraseña actual (requerida para cualquier cambio):
+                        </label>
+                        <div className="inputt">
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            name="claveAntigua"
+                            className="form-control"
+                            onChange={(e) => handleChange(e)}
+                            required
+                            value={input.claveAntigua}
+                          />{" "}
+                          {showPassword ? (
+                            <RiEyeOffLine
+                              className="ojoCerrado"
+                              onClick={handleShowPassword}
+                            />
+                          ) : (
+                            <RiEyeLine
+                              className="ojoAbierto"
+                              onClick={handleShowPassword}
+                            />
+                          )}
+                        </div>
+                      </li>
+                      <li className="list-group-item">
+                        <label>Nueva Contraseña:</label>
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          name="clave"
+                          className="form-control"
+                          onChange={(e) => handleChange(e)}
+                          value={input.clave}
+                        />
                       </li>
                       <li className="list-group-item">
                         <label>Domicilio:</label>
@@ -145,6 +198,7 @@ export default function Perfil() {
                         ).join(", ")}
                       </li>
                     </ul>
+                    {error && <p className="errorText">{error}</p>}
                     <div className="botonesPerf mt-4 d-flex justify-content-between">
                       <button type="submit" className="btn btn-primary me-2">
                         Guardar Cambios
